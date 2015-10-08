@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <color name="button_text_normal">#EBEBEB</color>
+  <color name="button_text_pressed">#FFFFFF</color>
+  <color name="button_text_disabled">#5C5C5C</color>
+
+  <color name="button_normal_stroke">#00000000</color>
+
+  <color name="button_normal_centerColor">#00000000</color>
+  <color name="button_normal_endColor">#00000000</color>
+  <color name="button_normal_startColor">#00000000</color>
+
+  <color name="button_pressed_stroke">#00000000</color>
+
+  <color name="button_pressed_centerColor">#00000000</color>
+  <color name="button_pressed_endColor">#00000000</color>
+  <color name="button_pressed_startColor">#00000000</color>
+
+  <color name="button_disabled_stroke">#00000000</color>
+
+  <color name="button_disabled_centerColor">#00000000</color>
+  <color name="button_disabled_endColor">#00000000</color>
+  <color name="button_disabled_startColor">#00000000</color>
+
+</resources>
