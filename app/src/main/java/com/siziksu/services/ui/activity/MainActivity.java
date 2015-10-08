@@ -36,7 +36,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
     index.add(new Index(
             TimerClassServiceActivity.class,
             "Repeated Tasks Using the Timer Class",
-            "This example performs some repeated tasks in a Service. An Alarm Clock Service that runs persistently in the background.You can start and stop the Service, but since it's not bound, if you stop it, it will be destroyed but not stopped until the task ends.")
+            "This example performs some repeated tasks in a Service. An Alarm Clock Service that runs persistently in the background. You can start and stop the Service, but since it's not bound, if you stop it, it will be destroyed but not stopped until the task ends.")
     );
     index.add(new Index(
             IServiceActivity.class,
@@ -45,8 +45,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
     );
     index.add(new Index(
             CommunicateFromIServiceActivity.class,
-            "Communicate from an Intent Service",
-            "Often a service simply executes in its own thread, independently of the activity that calls it. The service might need to communicate information to the activity. In this example the IntentService communicates with the activity using a BroadcastReceiver.")
+            "Communication from an IntentService",
+            "Often a service simply executes on its own thread, independently of the activity that calls it. The service might need to communicate information to the activity. In this example the IntentService communicates with the activity using a BroadcastReceiver.")
     );
     index.add(new Index(
             BindingServiceActivity.class,
@@ -61,7 +61,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
     index.add(new Index(
             WeatherServiceActivity.class,
             "Service with an external Binder and Listener",
-            "In this example we bind an Activity to a Service with and external Binder that returns the result with a custom listener. The result is delivered after 2 seconds.")
+            "In this example we bind an Activity to a Service with an external Binder that returns the result with a custom listener. The result is delivered after 2 seconds.")
     );
     index.add(new Index(
             MessengerServiceActivity.class,
