@@ -54,13 +54,13 @@
       android:label="@string/app_name"
       android:screenOrientation="portrait" />
 
-    <service android:name=".service.SimpleService" />
-    <service android:name=".service.LongRunningService" />
-    <service android:name=".service.TimerClassService" />
-    <service android:name=".service.IService" />
-    <service android:name=".service.CommunicateFromIService" />
+    <service android:name=".data.service.SimpleService" />
+    <service android:name=".data.service.LongRunningService" />
+    <service android:name=".data.service.TimerClassService" />
+    <service android:name=".data.service.IService" />
+    <service android:name=".data.service.CommunicateFromIService" />
     <service
-      android:name=".service.BindingService"
+      android:name=".data.service.BindingService"
       android:exported="false">
       <intent-filter>
         <action android:name="action.START_SERVICE" />
@@ -68,15 +68,15 @@
       </intent-filter>
     </service>
     <service
-      android:name=".service.BindingPackageService"
+      android:name=".data.service.BindingPackageService"
       android:exported="false">
       <intent-filter>
         <action android:name="action.START_SERVICE" />
         <category android:name="category.PACKAGE_BINDING" />
       </intent-filter>
     </service>
-    <service android:name=".service.WeatherService" />
-    <service android:name=".service.MessengerService" />
+    <service android:name=".data.service.WeatherService" />
+    <service android:name=".data.service.MessengerService" />
 
   </application>
 

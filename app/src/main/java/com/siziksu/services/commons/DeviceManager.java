@@ -1,7 +1,9 @@
-package com.siziksu.services.common;
+package com.siziksu.services.commons;
 
 import android.app.ActivityManager;
 import android.content.Context;
+
+import com.siziksu.services.app.Constants;
 
 public class DeviceManager {
 

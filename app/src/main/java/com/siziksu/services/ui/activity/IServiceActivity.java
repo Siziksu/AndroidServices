@@ -9,11 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siziksu.services.R;
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
-import com.siziksu.services.common.DeviceManager;
-import com.siziksu.services.common.Mock;
-import com.siziksu.services.service.IService;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.DeviceManager;
+import com.siziksu.services.commons.mock.Mock;
+import com.siziksu.services.data.service.IService;
 
 public class IServiceActivity extends AppCompatActivity implements View.OnClickListener {
 

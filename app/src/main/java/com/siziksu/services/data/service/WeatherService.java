@@ -1,12 +1,12 @@
-package com.siziksu.services.service;
+package com.siziksu.services.data.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
-import com.siziksu.services.service.binder.WeatherBinder;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
+import com.siziksu.services.data.service.binder.WeatherBinder;
 
 public class WeatherService extends Service {
 

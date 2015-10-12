@@ -1,4 +1,4 @@
-package com.siziksu.services.common;
+package com.siziksu.services.commons;
 
 import android.text.TextUtils;
 import android.util.Log;

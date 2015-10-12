@@ -1,13 +1,13 @@
-package com.siziksu.services.service;
+package com.siziksu.services.data.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
 
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
-import com.siziksu.services.common.Mock;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.mock.Mock;
 
 import java.net.URL;
 import java.util.Timer;

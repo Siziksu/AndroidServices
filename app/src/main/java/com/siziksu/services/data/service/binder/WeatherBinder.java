@@ -1,13 +1,13 @@
-package com.siziksu.services.service.binder;
+package com.siziksu.services.data.service.binder;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
 
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
-import com.siziksu.services.common.Mock;
-import com.siziksu.services.service.WeatherService;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.mock.Mock;
+import com.siziksu.services.data.service.WeatherService;
 
 public class WeatherBinder extends Binder {
 

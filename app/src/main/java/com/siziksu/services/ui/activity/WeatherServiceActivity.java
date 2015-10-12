@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siziksu.services.R;
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
-import com.siziksu.services.common.DeviceManager;
-import com.siziksu.services.service.WeatherService;
-import com.siziksu.services.service.binder.WeatherBinder;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.DeviceManager;
+import com.siziksu.services.data.service.WeatherService;
+import com.siziksu.services.data.service.binder.WeatherBinder;
 
 public class WeatherServiceActivity extends AppCompatActivity implements View.OnClickListener, WeatherBinder.WeatherListener {
 

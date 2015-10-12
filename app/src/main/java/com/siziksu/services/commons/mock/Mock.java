@@ -1,6 +1,8 @@
-package com.siziksu.services.common;
+package com.siziksu.services.commons.mock;
 
 import android.content.Intent;
+
+import com.siziksu.services.app.Constants;
 
 import java.net.URL;
 

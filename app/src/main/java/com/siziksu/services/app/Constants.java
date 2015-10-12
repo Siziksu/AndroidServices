@@ -1,4 +1,4 @@
-package com.siziksu.services.common;
+package com.siziksu.services.app;
 
 public class Constants {
 

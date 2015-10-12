@@ -9,10 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siziksu.services.R;
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
-import com.siziksu.services.common.DeviceManager;
-import com.siziksu.services.service.TimerClassService;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.DeviceManager;
+import com.siziksu.services.data.service.TimerClassService;
 
 public class TimerClassServiceActivity extends AppCompatActivity implements View.OnClickListener {
 

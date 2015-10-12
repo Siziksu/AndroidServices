@@ -1,4 +1,4 @@
-package com.siziksu.services.service;
+package com.siziksu.services.data.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 
-import com.siziksu.services.common.Commons;
-import com.siziksu.services.common.Constants;
+import com.siziksu.services.commons.Commons;
+import com.siziksu.services.app.Constants;
 
 import java.util.Timer;
 import java.util.TimerTask;
