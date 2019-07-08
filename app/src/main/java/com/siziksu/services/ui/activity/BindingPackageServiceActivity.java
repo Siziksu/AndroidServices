@@ -11,117 +11,121 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.siziksu.services.R;
-import com.siziksu.services.commons.Commons;
 import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.Commons;
 import com.siziksu.services.commons.DeviceManager;
 import com.siziksu.services.commons.mock.Mock;
 import com.siziksu.services.data.service.BindingPackageService;
 
-public class BindingPackageServiceActivity extends AppCompatActivity implements View.OnClickListener {
+public class BindingPackageServiceActivity extends AppCompatActivity
+        implements View.OnClickListener {
 
-  private Button buttonStart;
-  private Button buttonStop;
+    private Button buttonStart;
+    private Button buttonStop;
 
-  private boolean bound;
-  private BindingPackageService service;
-  private ServiceConnection serviceConnection = new ServiceConnection() {
+    private boolean bound;
+    private BindingPackageService service;
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_CONNECTED);
+            service = ((BindingPackageService.LocalBinder) binder).getService();
+            service.setUrls(Mock.getInstance().getUrls());
+            bound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_DISCONNECTED);
+            service = null;
+            bound = false;
+        }
+    };
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder binder) {
-      Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_CONNECTED);
-      service = ((BindingPackageService.LocalBinder) binder).getService();
-      service.setUrls(Mock.getInstance().getUrls());
-      bound = true;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_two_buttons);
+        findViewById(R.id.btnStopService).setOnClickListener(this);
+        ((TextView) findViewById(R.id.activityTitle)).setText(
+                getIntent().getStringExtra(Constants.EXTRAS_TITLE));
+        ((TextView) findViewById(R.id.activitySummary)).setText(
+                getIntent().getStringExtra(Constants.EXTRAS_SUMMARY));
+        buttonStart = findViewById(R.id.btnStartService);
+        buttonStart.setOnClickListener(this);
+        buttonStop = findViewById(R.id.btnStopService);
+        buttonStop.setOnClickListener(this);
+        DeviceManager.init(this);
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
-      Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_DISCONNECTED);
-      service = null;
-      bound = false;
+    protected void onResume() {
+        super.onResume();
+        if (DeviceManager.getInstance().isServiceRunning(Constants.TAG_BINDING_PACKAGE_SERVICE)) {
+            buttonStart.setEnabled(false);
+            buttonStop.setEnabled(true);
+            Toast.makeText(this, Constants.SERVICE_RUNNING, Toast.LENGTH_SHORT).show();
+        } else {
+            buttonStop.setEnabled(false);
+        }
+        bindService();
     }
-  };
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_two_buttons);
-    findViewById(R.id.btnStopService).setOnClickListener(this);
-    ((TextView) findViewById(R.id.activityTitle)).setText(getIntent().getStringExtra(Constants.EXTRAS_TITLE));
-    ((TextView) findViewById(R.id.activitySummary)).setText(getIntent().getStringExtra(Constants.EXTRAS_SUMMARY));
-    buttonStart = (Button) findViewById(R.id.btnStartService);
-    buttonStart.setOnClickListener(this);
-    buttonStop = (Button) findViewById(R.id.btnStopService);
-    buttonStop.setOnClickListener(this);
-    DeviceManager.init(this);
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    if (DeviceManager.getInstance().isServiceRunning(Constants.TAG_BINDING_PACKAGE_SERVICE)) {
-      buttonStart.setEnabled(false);
-      buttonStop.setEnabled(true);
-      Toast.makeText(this, Constants.SERVICE_RUNNING, Toast.LENGTH_SHORT).show();
-    } else {
-      buttonStop.setEnabled(false);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unbindService();
     }
-    bindService();
-  }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
-    unbindService();
-  }
-
-  @Override
-  public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.btnStartService:
-        buttonStart.setEnabled(false);
-        buttonStop.setEnabled(true);
-        startService();
-        break;
-      case R.id.btnStopService:
-        buttonStop.setEnabled(false);
-        stopService();
-        break;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnStartService:
+                buttonStart.setEnabled(false);
+                buttonStop.setEnabled(true);
+                startService();
+                break;
+            case R.id.btnStopService:
+                buttonStop.setEnabled(false);
+                stopService();
+                break;
+        }
     }
-  }
 
-  private void startService() {
-    Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_STARTING);
-    startService(new Intent(getBaseContext(), BindingPackageService.class));
-  }
-
-  private void stopService() {
-    if (bound) {
-      Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_STOPPING + " (bound)");
-      service.stopService(new Intent(getBaseContext(), BindingPackageService.class));
-    } else {
-      Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_STOPPING + " (not bound)");
-      stopService(new Intent(getBaseContext(), BindingPackageService.class));
+    private void startService() {
+        Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_STARTING);
+        startService(new Intent(getBaseContext(), BindingPackageService.class));
     }
-  }
 
-  private void bindService() {
-    if (!bound) {
-      Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_BINDING);
-      Intent intent = new Intent();
-      intent.setAction("action.START_SERVICE");
-      intent.addCategory("category.PACKAGE_BINDING");
-      bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+    private void stopService() {
+        if (bound) {
+            Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE,
+                    Constants.SERVICE_STOPPING + " (bound)");
+            service.stopService(new Intent(getBaseContext(), BindingPackageService.class));
+        } else {
+            Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE,
+                    Constants.SERVICE_STOPPING + " (not bound)");
+            stopService(new Intent(getBaseContext(), BindingPackageService.class));
+        }
     }
-  }
 
-  private void unbindService() {
-    if (bound) {
-      bound = false;
-      Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_UNBINDING);
-      unbindService(serviceConnection);
+    private void bindService() {
+        if (!bound) {
+            Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_BINDING);
+            Intent intent = new Intent();
+            intent.setAction("action.START_SERVICE");
+            intent.addCategory("category.PACKAGE_BINDING");
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
     }
-  }
+
+    private void unbindService() {
+        if (bound) {
+            bound = false;
+            Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_UNBINDING);
+            unbindService(serviceConnection);
+        }
+    }
 }

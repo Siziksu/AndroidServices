@@ -8,39 +8,39 @@ import com.siziksu.services.commons.Commons;
 import com.siziksu.services.commons.mock.Mock;
 import java.net.URL;
 
-public class CommunicateFromIService extends IntentService {
+public class Service extends IntentService {
 
     private static final int TIME_BETWEEN_DOWNLOADS = 2000;
 
     private Intent intent;
     private URL[] urls;
 
-    public CommunicateFromIService() {
-        super(Constants.TAG_COMMUNICATE_FROM_SERVICE);
+    public Service() {
+        super(Constants.TAG_INTENT_SERVICE);
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_BOUND);
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_BOUND);
         return null;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_UNBOUND);
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_UNBOUND);
         return super.onUnbind(intent);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_CREATED);
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_CREATED);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         this.intent = intent;
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STARTED);
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_STARTED);
         Object[] urls = (Object[]) intent.getExtras().get(Constants.EXTRAS_URL);
         if (urls != null) {
             this.urls = new URL[urls.length];
@@ -53,7 +53,7 @@ public class CommunicateFromIService extends IntentService {
 
     @Override
     public boolean stopService(Intent name) {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STOPPED);
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_STOPPED);
         return super.stopService(name);
     }
 
@@ -61,7 +61,7 @@ public class CommunicateFromIService extends IntentService {
     public void onDestroy() {
         super.onDestroy();
         stopService(intent);
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_DESTROYED);
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_DESTROYED);
     }
 
     @Override
@@ -70,19 +70,13 @@ public class CommunicateFromIService extends IntentService {
         for (int i = 0; i < urls.length; i++) {
             totalBytesDownloaded += DownloadFile(urls[i]);
             long progress = ((int) (((i + 1) / (float) urls.length) * 100));
-            Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, progress + "% downloaded");
+            Commons.log(Constants.TAG_INTENT_SERVICE, progress + "% downloaded");
         }
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE,
-                "Downloaded " + totalBytesDownloaded + " bytes");
-        // Send a broadcast to inform the activity that the file has been downloaded
-        Intent broadcast = new Intent();
-        broadcast.setAction(Constants.ACTION_FILES_DOWNLOADED);
-        broadcast.putExtra(Constants.EXTRAS_MESSAGE, Constants.BROADCAST_RECEIVED);
-        getBaseContext().sendBroadcast(broadcast);
+        Commons.log(Constants.TAG_INTENT_SERVICE, "Downloaded " + totalBytesDownloaded + " bytes");
     }
 
     private int DownloadFile(URL url) {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "Downloading: " + url);
+        Commons.log(Constants.TAG_INTENT_SERVICE, "Downloading: " + url);
         Mock.getInstance().pause(TIME_BETWEEN_DOWNLOADS);
         // Return an arbitrary number representing the size of the file downloaded
         return 100;

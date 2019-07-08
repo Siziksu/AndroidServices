@@ -11,9 +11,10 @@ import com.siziksu.services.R;
 import com.siziksu.services.app.Constants;
 import com.siziksu.services.commons.Commons;
 import com.siziksu.services.commons.DeviceManager;
-import com.siziksu.services.data.service.TimerClassService;
+import com.siziksu.services.commons.mock.Mock;
+import com.siziksu.services.data.service.Service;
 
-public class TimerClassServiceActivity extends AppCompatActivity implements View.OnClickListener {
+public class ServiceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonStart;
 
@@ -33,7 +34,7 @@ public class TimerClassServiceActivity extends AppCompatActivity implements View
     @Override
     protected void onResume() {
         super.onResume();
-        if (DeviceManager.getInstance().isServiceRunning(Constants.TAG_TIMER_CLASS_SERVICE)) {
+        if (DeviceManager.getInstance().isServiceRunning(Constants.TAG_INTENT_SERVICE)) {
             buttonStart.setEnabled(false);
             Toast.makeText(this, Constants.SERVICE_RUNNING, Toast.LENGTH_SHORT).show();
         }
@@ -55,7 +56,7 @@ public class TimerClassServiceActivity extends AppCompatActivity implements View
     }
 
     private void startService() {
-        Commons.log(Constants.TAG_TIMER_CLASS_SERVICE, Constants.SERVICE_STARTING);
-        startService(new Intent(getBaseContext(), TimerClassService.class));
+        Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_STARTING);
+        startService(Mock.getInstance().putUrls(new Intent(getBaseContext(), Service.class)));
     }
 }

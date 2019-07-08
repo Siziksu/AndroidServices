@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:weightSum="62">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="62">
 
-  <Button
-    android:id="@+id/btnStartService"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="30"
-    android:text="@string/action_start_service"
-    android:textColor="@drawable/button_text"
-    android:textSize="14sp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:minHeight="35dp"
-    android:background="@drawable/button" />
+    <Button
+            android:id="@+id/btnStartService"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:text="@string/action_start_service"
+            android:textColor="@drawable/button_text"
+            android:textSize="14sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:minHeight="35dp"
+            android:background="@drawable/button" />
 
-  <Space
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="2" />
+    <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
-  <Button
-    android:id="@+id/btnStopService"
-    android:layout_width="0dp"
-    android:layout_weight="30"
-    android:layout_height="wrap_content"
-    android:text="@string/action_stop_service"
-    android:textColor="@drawable/button_text"
-    android:textSize="14sp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:minHeight="35dp"
-    android:background="@drawable/button" />
+    <Button
+            android:id="@+id/btnStopService"
+            android:layout_width="0dp"
+            android:layout_weight="30"
+            android:layout_height="wrap_content"
+            android:text="@string/action_stop_service"
+            android:textColor="@drawable/button_text"
+            android:textSize="14sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:minHeight="35dp"
+            android:background="@drawable/button" />
 </LinearLayout>

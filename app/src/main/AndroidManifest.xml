@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.siziksu.services"
-          android:installLocation="preferExternal">
+        package="com.siziksu.services"
+        android:installLocation="preferExternal">
 
-  <application
-    android:allowBackup="true"
-    android:icon="@drawable/ic_launcher"
-    android:label="@string/app_name"
-    android:theme="@style/AppTheme">
-    <activity
-      android:name=".ui.activity.MainActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-    <activity
-      android:name=".ui.activity.SimpleServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.LongRunningServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.TimerClassServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.IServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.CommunicateFromIServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.BindingServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.BindingPackageServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.WeatherServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".ui.activity.MessengerServiceActivity"
-      android:label="@string/app_name"
-      android:screenOrientation="portrait" />
+    <application
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name=".ui.activity.MainActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.activity.SimpleServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.LongRunningServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.TimerClassServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.ServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.CommunicateFromIServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.BindingServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.BindingPackageServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.WeatherServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".ui.activity.MessengerServiceActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait" />
 
-    <service android:name=".data.service.SimpleService" />
-    <service android:name=".data.service.LongRunningService" />
-    <service android:name=".data.service.TimerClassService" />
-    <service android:name=".data.service.IService" />
-    <service android:name=".data.service.CommunicateFromIService" />
-    <service
-      android:name=".data.service.BindingService"
-      android:exported="false">
-      <intent-filter>
-        <action android:name="action.START_SERVICE" />
-        <category android:name="category.NORMAL_BINDING" />
-      </intent-filter>
-    </service>
-    <service
-      android:name=".data.service.BindingPackageService"
-      android:exported="false">
-      <intent-filter>
-        <action android:name="action.START_SERVICE" />
-        <category android:name="category.PACKAGE_BINDING" />
-      </intent-filter>
-    </service>
-    <service android:name=".data.service.WeatherService" />
-    <service android:name=".data.service.MessengerService" />
+        <service android:name=".data.service.SimpleService" />
+        <service android:name=".data.service.LongRunningService" />
+        <service android:name=".data.service.TimerClassService" />
+        <service android:name=".data.service.Service" />
+        <service android:name=".data.service.CommunicateFromIService" />
+        <service
+                android:name=".data.service.BindingService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="action.START_SERVICE" />
+                <category android:name="category.NORMAL_BINDING" />
+            </intent-filter>
+        </service>
+        <service
+                android:name=".data.service.BindingPackageService"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="action.START_SERVICE" />
+                <category android:name="category.PACKAGE_BINDING" />
+            </intent-filter>
+        </service>
+        <service android:name=".data.service.WeatherService" />
+        <service android:name=".data.service.MessengerService" />
 
-  </application>
+    </application>
 
 </manifest>

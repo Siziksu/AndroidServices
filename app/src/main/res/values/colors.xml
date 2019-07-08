@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <color name="background">#232323</color>
-  <color name="white">#FFFFFF</color>
-  <color name="dark">#232323</color>
+    <color name="background">#232323</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dark">#232323</color>
 
-  <color name="text">#EFEFEF</color>
-  <color name="summary">#CFCFCF</color>
-  <color name="blue">#0075AB</color>
-  <color name="transparent_dark">#55232323</color>
+    <color name="text">#EFEFEF</color>
+    <color name="summary">#CFCFCF</color>
+    <color name="blue">#0075AB</color>
+    <color name="transparent_dark">#55232323</color>
 
 </resources>

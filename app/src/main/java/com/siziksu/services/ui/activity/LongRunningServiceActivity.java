@@ -7,54 +7,55 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.siziksu.services.R;
-import com.siziksu.services.commons.Commons;
 import com.siziksu.services.app.Constants;
+import com.siziksu.services.commons.Commons;
 import com.siziksu.services.commons.DeviceManager;
 import com.siziksu.services.data.service.LongRunningService;
 
 public class LongRunningServiceActivity extends AppCompatActivity implements View.OnClickListener {
 
-  private Button buttonStart;
+    private Button buttonStart;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_one_button);
-    ((TextView) findViewById(R.id.activityTitle)).setText(getIntent().getStringExtra(Constants.EXTRAS_TITLE));
-    ((TextView) findViewById(R.id.activitySummary)).setText(getIntent().getStringExtra(Constants.EXTRAS_SUMMARY));
-    buttonStart = (Button) findViewById(R.id.btnStartService);
-    buttonStart.setOnClickListener(this);
-    DeviceManager.init(this);
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    if (DeviceManager.getInstance().isServiceRunning(Constants.TAG_LONG_RUNNING_SERVICE)) {
-      buttonStart.setEnabled(false);
-      Toast.makeText(this, Constants.SERVICE_RUNNING, Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_one_button);
+        ((TextView) findViewById(R.id.activityTitle)).setText(
+                getIntent().getStringExtra(Constants.EXTRAS_TITLE));
+        ((TextView) findViewById(R.id.activitySummary)).setText(
+                getIntent().getStringExtra(Constants.EXTRAS_SUMMARY));
+        buttonStart = findViewById(R.id.btnStartService);
+        buttonStart.setOnClickListener(this);
+        DeviceManager.init(this);
     }
-  }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
-  }
-
-  @Override
-  public void onClick(View v) {
-    switch (v.getId()) {
-      case R.id.btnStartService:
-        buttonStart.setEnabled(false);
-        startService();
-        break;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (DeviceManager.getInstance().isServiceRunning(Constants.TAG_LONG_RUNNING_SERVICE)) {
+            buttonStart.setEnabled(false);
+            Toast.makeText(this, Constants.SERVICE_RUNNING, Toast.LENGTH_SHORT).show();
+        }
     }
-  }
 
-  private void startService() {
-    Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, Constants.SERVICE_STARTING);
-    startService(new Intent(getBaseContext(), LongRunningService.class));
-  }
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnStartService:
+                buttonStart.setEnabled(false);
+                startService();
+                break;
+        }
+    }
+
+    private void startService() {
+        Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, Constants.SERVICE_STARTING);
+        startService(new Intent(getBaseContext(), LongRunningService.class));
+    }
 }

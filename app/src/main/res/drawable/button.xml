@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <!--state_enabled = button_disabled-->
-  <item android:state_enabled="false">
-    <shape android:shape="rectangle">
-      <stroke
-        android:width="0dp"
-        android:color="@color/button_disabled_stroke" />
-      <gradient
-        android:angle="90"
-        android:centerColor="@color/button_disabled_centerColor"
-        android:centerX="50%"
-        android:endColor="@color/button_disabled_endColor"
-        android:startColor="@color/button_disabled_startColor"
-        android:type="linear" />
-    </shape>
-  </item>
-  <!--state_selected = button_normal-->
-  <item android:state_selected="true">
-    <shape android:shape="rectangle">
-      <stroke
-        android:width="0dp"
-        android:color="@color/button_normal_stroke" />
-      <gradient
-        android:angle="90"
-        android:centerColor="@color/button_normal_centerColor"
-        android:centerX="50%"
-        android:endColor="@color/button_normal_endColor"
-        android:startColor="@color/button_normal_startColor"
-        android:type="linear" />
-    </shape>
-  </item>
-  <!--state_pressed = button_pressed-->
-  <item android:state_pressed="true">
-    <shape android:shape="rectangle">
-      <stroke
-        android:width="0dp"
-        android:color="@color/button_pressed_stroke" />
-      <gradient
-        android:angle="90"
-        android:centerColor="@color/button_pressed_centerColor"
-        android:centerX="50%"
-        android:endColor="@color/button_pressed_endColor"
-        android:startColor="@color/button_pressed_startColor"
-        android:type="linear" />
-    </shape>
-  </item>
-  <!--state_default = button_normal-->
-  <item>
-    <shape android:shape="rectangle">
-      <stroke
-        android:width="0dp"
-        android:color="@color/button_normal_stroke" />
-      <gradient
-        android:angle="90"
-        android:centerColor="@color/button_normal_centerColor"
-        android:centerX="50%"
-        android:endColor="@color/button_normal_endColor"
-        android:startColor="@color/button_normal_startColor"
-        android:type="linear" />
-    </shape>
-  </item>
+    <!--state_enabled = button_disabled-->
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <stroke
+                    android:width="0dp"
+                    android:color="@color/button_disabled_stroke" />
+            <gradient
+                    android:angle="90"
+                    android:centerColor="@color/button_disabled_centerColor"
+                    android:centerX="50%"
+                    android:endColor="@color/button_disabled_endColor"
+                    android:startColor="@color/button_disabled_startColor"
+                    android:type="linear" />
+        </shape>
+    </item>
+    <!--state_selected = button_normal-->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <stroke
+                    android:width="0dp"
+                    android:color="@color/button_normal_stroke" />
+            <gradient
+                    android:angle="90"
+                    android:centerColor="@color/button_normal_centerColor"
+                    android:centerX="50%"
+                    android:endColor="@color/button_normal_endColor"
+                    android:startColor="@color/button_normal_startColor"
+                    android:type="linear" />
+        </shape>
+    </item>
+    <!--state_pressed = button_pressed-->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <stroke
+                    android:width="0dp"
+                    android:color="@color/button_pressed_stroke" />
+            <gradient
+                    android:angle="90"
+                    android:centerColor="@color/button_pressed_centerColor"
+                    android:centerX="50%"
+                    android:endColor="@color/button_pressed_endColor"
+                    android:startColor="@color/button_pressed_startColor"
+                    android:type="linear" />
+        </shape>
+    </item>
+    <!--state_default = button_normal-->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                    android:width="0dp"
+                    android:color="@color/button_normal_stroke" />
+            <gradient
+                    android:angle="90"
+                    android:centerColor="@color/button_normal_centerColor"
+                    android:centerX="50%"
+                    android:endColor="@color/button_normal_endColor"
+                    android:startColor="@color/button_normal_startColor"
+                    android:type="linear" />
+        </shape>
+    </item>
 </selector>
