@@ -18,7 +18,7 @@ class MainActivity : ListActivity(), AdapterView.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         menu.addAll(MenuLoader.getMenu())
-        val adapter = IndexAdapter(this, menu)
+        val adapter = IndexAdapter(menu)
         listAdapter = adapter
         listView.onItemClickListener = this
     }
