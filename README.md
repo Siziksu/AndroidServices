@@ -1,7 +1,7 @@
-# AndroidServices
+# Android Services
 This project is intended to bring an approach to the Services in Android. All the events are shown in the logcat.
 
-List of examples:
+## List of examples included:
 
 - **Simple Service**: Simple example of a Sticky Service.
 - **Long Running Service**: Simple example of a Sticky Service with a simulated long running task.
