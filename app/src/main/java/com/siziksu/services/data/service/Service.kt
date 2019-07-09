@@ -6,11 +6,12 @@ import android.os.IBinder
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.mock.Mock
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class Service : IntentService(Constants.TAG_INTENT_SERVICE) {
 
-    private var intent: Intent? = null
-    private var urls: Array<String>? = null
+    private lateinit var intent: Intent
 
     override fun onBind(intent: Intent): IBinder? {
         Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_BOUND)
@@ -27,14 +28,13 @@ class Service : IntentService(Constants.TAG_INTENT_SERVICE) {
         Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_CREATED)
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         this.intent = intent
         Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_STARTED)
-        this.urls = intent?.extras?.get(Constants.EXTRAS_URL) as Array<String>
         return super.onStartCommand(intent, flags, startId)
     }
 
-    override fun stopService(name: Intent?): Boolean {
+    override fun stopService(name: Intent): Boolean {
         Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_STOPPED)
         return super.stopService(name)
     }
@@ -45,15 +45,18 @@ class Service : IntentService(Constants.TAG_INTENT_SERVICE) {
         Commons.log(Constants.TAG_INTENT_SERVICE, Constants.SERVICE_DESTROYED)
     }
 
-    override fun onHandleIntent(intent: Intent?) {
+    override fun onHandleIntent(intent: Intent) {
+        task(intent, Mock.urls)
+    }
+
+    private fun task(intent: Intent, list: Array<String>) = runBlocking {
         var totalBytesDownloaded: Long = 0
-        urls?.let {
-            for (i in it.indices) {
-                totalBytesDownloaded += Mock.downloadFile(it[i]).toLong()
-                val progress = ((i + 1) / it.size.toFloat() * 100).toInt().toLong()
-                Commons.log(Constants.TAG_INTENT_SERVICE, "$progress% downloaded")
-            }
+        for (i in 0 until list.size) {
+            totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
+            Commons.log(Constants.TAG_INTENT_SERVICE, "${((i + 1) / list.size.toFloat() * 100)}% downloaded ($totalBytesDownloaded bytes)")
+            delay(1000)
         }
         Commons.log(Constants.TAG_INTENT_SERVICE, "Downloaded $totalBytesDownloaded bytes")
+        // IntentService destroys automatically after the task ends
     }
 }

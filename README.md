@@ -5,7 +5,6 @@ List of examples:
 
 - **Simple Service**: Simple example of a Sticky Service.
 - **Long Running Service**: Simple example of a Sticky Service with a simulated long running task.
-- **Repeated Tasks Using the Timer Class**: This example performs some repeated tasks in a Service. An Alarm Clock Service that runs persistently in the background.
 - **Using an IntentService**: This example executes an asynchronous task on a separate thread using an IntentService.
 - **Communication from an IntentService**: Often a service simply executes on its own thread, independently of the activity that calls it. The service might need to communicate information to the activity. In this example the IntentService communicates with the activity using a BroadcastReceiver.
 - **Binding an Activity to a Service**: In this example we bind an Activity to a Service, being able to call methods inside the Service.

@@ -10,7 +10,6 @@ import com.siziksu.services.commons.mock.Mock
 class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SERVICE) {
 
     private var intent: Intent? = null
-    private var urls: Array<String>? = null
 
     override fun onBind(intent: Intent): IBinder? {
         Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_BOUND)
@@ -30,7 +29,6 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         this.intent = intent
         Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STARTED)
-        this.urls = intent?.extras?.get(Constants.EXTRAS_URL) as Array<String>
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -47,12 +45,11 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
 
     override fun onHandleIntent(intent: Intent?) {
         var totalBytesDownloaded: Long = 0
-        urls?.let {
-            for (i in it.indices) {
-                totalBytesDownloaded += Mock.downloadFile(it[i]).toLong()
-                val progress = ((i + 1) / it.size.toFloat() * 100).toInt().toLong()
-                Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "$progress% downloaded")
-            }
+        val urls = Mock.urls
+        for (i in urls.indices) {
+            totalBytesDownloaded += Mock.downloadFile(urls[i]).toLong()
+            val progress = ((i + 1) / urls.size.toFloat() * 100).toInt().toLong()
+            Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "$progress% downloaded")
         }
         Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "Downloaded $totalBytesDownloaded bytes")
         // Send a broadcast to inform the activity that the file has been downloaded

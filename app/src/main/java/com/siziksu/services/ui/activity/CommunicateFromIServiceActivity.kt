@@ -11,7 +11,6 @@ import com.siziksu.services.R
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.DeviceManager
-import com.siziksu.services.commons.mock.Mock
 import com.siziksu.services.data.service.CommunicateFromIService
 import kotlinx.android.synthetic.main.activity_one_button.one_button_layout
 import kotlinx.android.synthetic.main.section_single_button.btnStartService
@@ -65,6 +64,6 @@ class CommunicateFromIServiceActivity : AppCompatActivity() {
 
     private fun startService() {
         Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STARTING)
-        startService(Mock.putUrls(Intent(baseContext, CommunicateFromIService::class.java)))
+        startService(Intent(baseContext, CommunicateFromIService::class.java))
     }
 }
