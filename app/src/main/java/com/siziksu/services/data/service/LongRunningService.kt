@@ -52,8 +52,8 @@ class LongRunningService : Service() {
                 delay(1000)
             }
             Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "Downloaded $totalBytesDownloaded bytes")
-            // This will stop the service after finishing the task
-            stopService(intent)
+
+            stopService(intent) // This will stop the service after finishing the task
         }
     }
 }

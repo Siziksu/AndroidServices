@@ -46,10 +46,10 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
     }
 
     override fun onHandleIntent(intent: Intent) {
-        task(intent, Mock.urls)
+        task(Mock.urls)
     }
 
-    private fun task(intent: Intent, list: Array<String>) = runBlocking {
+    private fun task(list: Array<String>) = runBlocking {
         var totalBytesDownloaded: Long = 0
         for (i in 0 until list.size) {
             totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
