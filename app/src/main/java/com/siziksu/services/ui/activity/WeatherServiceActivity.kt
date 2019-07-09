@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.section_single_button.btnStartService
 import kotlinx.android.synthetic.main.section_title.activitySummary
 import kotlinx.android.synthetic.main.section_title.activityTitle
 
-class WeatherServiceActivity : AppCompatActivity(), WeatherBinder.WeatherListener {
+class WeatherServiceActivity : AppCompatActivity(), WeatherBinder.Listener {
 
     private var bound: Boolean = false
     private var service: WeatherService? = null
@@ -60,10 +60,6 @@ class WeatherServiceActivity : AppCompatActivity(), WeatherBinder.WeatherListene
 
     override fun updateForecast(forecast: String) {
         Commons.log(Constants.TAG_WEATHER_SERVICE, forecast)
-    }
-
-    override fun onForecastError(e: Exception) {
-        Commons.error(e)
     }
 
     private fun initializeViews() {

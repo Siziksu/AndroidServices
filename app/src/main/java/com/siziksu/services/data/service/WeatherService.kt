@@ -43,7 +43,7 @@ class WeatherService : Service() {
         Commons.log(Constants.TAG_WEATHER_SERVICE, Constants.SERVICE_DESTROYED)
     }
 
-    fun getForecast(listener: WeatherBinder.WeatherListener, string: String) {
+    fun getForecast(listener: WeatherBinder.Listener, string: String) {
         binder.getForecast(listener, string)
     }
 }
