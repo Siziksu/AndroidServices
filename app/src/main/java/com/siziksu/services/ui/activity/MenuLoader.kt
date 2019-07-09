@@ -19,11 +19,6 @@ class MenuLoader {
                     "Simple example of a Sticky Service with a simulated long running task. You can start and stop the Service, but since it's not bound, if you stop it, it will be destroyed but not stopped until the task ends.")
             )
             menu.add(Index(
-                    TimerClassServiceActivity::class.java,
-                    "Repeated Tasks Using the Timer Class",
-                    "This example performs some repeated tasks in a Service. An Alarm Clock Service that runs persistently in the background. You can start and stop the Service, but since it's not bound, if you stop it, it will be destroyed but not stopped until the task ends.")
-            )
-            menu.add(Index(
                     ServiceActivity::class.java,
                     "Using an IntentService",
                     "This example executes an asynchronous task on a separate thread using an IntentService.")

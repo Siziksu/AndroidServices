@@ -28,10 +28,6 @@
                 android:label="@string/app_name"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".ui.activity.TimerClassServiceActivity"
-                android:label="@string/app_name"
-                android:screenOrientation="portrait" />
-        <activity
                 android:name=".ui.activity.ServiceActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait" />
@@ -58,7 +54,6 @@
 
         <service android:name=".data.service.SimpleService" />
         <service android:name=".data.service.LongRunningService" />
-        <service android:name=".data.service.TimerClassService" />
         <service android:name=".data.service.Service" />
         <service android:name=".data.service.CommunicateFromIService" />
         <service
