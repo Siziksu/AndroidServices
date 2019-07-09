@@ -8,11 +8,10 @@ import android.os.IBinder
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.mock.Mock
-import java.net.URL
 
 class BindingPackageService : Service() {
 
-    private var urls: Array<URL>? = null
+    private var urls: Array<String>? = null
 
     private val binder = LocalBinder()
     private var stopService: Boolean = false
@@ -63,20 +62,13 @@ class BindingPackageService : Service() {
         Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_DESTROYED)
     }
 
-    fun setUrls(urls: Array<URL>) {
+    fun setUrls(urls: Array<String>) {
         this.urls = urls
     }
 
-    private fun DownloadFile(url: URL): Int {
-        Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, "Downloading: $url")
-        Mock.pause(TIME_BETWEEN_DOWNLOADS)
-        // Return an arbitrary number representing the size of the file downloaded
-        return 100
-    }
+    private inner class BackgroundTask(private val service: Service, private val intent: Intent) : AsyncTask<Array<String>, Int, Long>() {
 
-    private inner class BackgroundTask(private val service: Service, private val intent: Intent) : AsyncTask<Array<URL>, Int, Long>() {
-
-        override fun doInBackground(vararg urls: Array<URL>): Long? {
+        override fun doInBackground(vararg urls: Array<String>): Long? {
             val count = urls.size
             var totalBytesDownloaded: Long = 0
             for (i in 0 until count) {
@@ -84,7 +76,7 @@ class BindingPackageService : Service() {
                     cancel(true)
                     break
                 } else {
-                    totalBytesDownloaded += DownloadFile(urls[0][i]).toLong()
+                    totalBytesDownloaded += Mock.downloadFile(urls[0][i]).toLong()
                     // Calculate percentage downloaded and report its progress
                     publishProgress(((i + 1) / count.toFloat() * 100).toInt())
                     Mock.pause(DELAY_TIME_TO_PUBLISH_PROGRESS)
@@ -111,7 +103,6 @@ class BindingPackageService : Service() {
 
     companion object {
 
-        private const val TIME_BETWEEN_DOWNLOADS = 2000L
         private const val DELAY_TIME_TO_PUBLISH_PROGRESS = 500L
     }
 }

@@ -6,12 +6,11 @@ import android.os.IBinder
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.mock.Mock
-import java.net.URL
 
 class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SERVICE) {
 
     private var intent: Intent? = null
-    private var urls: Array<URL>? = null
+    private var urls: Array<String>? = null
 
     override fun onBind(intent: Intent): IBinder? {
         Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_BOUND)
@@ -31,7 +30,7 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         this.intent = intent
         Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STARTED)
-        this.urls = intent?.extras?.get(Constants.EXTRAS_URL) as Array<URL>
+        this.urls = intent?.extras?.get(Constants.EXTRAS_URL) as Array<String>
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -50,7 +49,7 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
         var totalBytesDownloaded: Long = 0
         urls?.let {
             for (i in it.indices) {
-                totalBytesDownloaded += downloadFile(it[i]).toLong()
+                totalBytesDownloaded += Mock.downloadFile(it[i]).toLong()
                 val progress = ((i + 1) / it.size.toFloat() * 100).toInt().toLong()
                 Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "$progress% downloaded")
             }
@@ -61,17 +60,5 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
         broadcast.action = Constants.ACTION_FILES_DOWNLOADED
         broadcast.putExtra(Constants.EXTRAS_MESSAGE, Constants.BROADCAST_RECEIVED)
         baseContext.sendBroadcast(broadcast)
-    }
-
-    private fun downloadFile(url: URL): Int {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "Downloading: $url")
-        Mock.pause(TIME_BETWEEN_DOWNLOADS)
-        // Return an arbitrary number representing the size of the file downloaded
-        return 100
-    }
-
-    companion object {
-
-        private const val TIME_BETWEEN_DOWNLOADS = 2000L
     }
 }

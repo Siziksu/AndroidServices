@@ -3,15 +3,17 @@ package com.siziksu.services.commons.mock
 import android.content.Intent
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
-import java.net.URL
+import kotlin.random.Random
 
 class Mock {
 
     companion object {
-        val urls: Array<URL> = arrayOf(URL("http://www.amazon.com/file.pdf"),
-                                       URL("http://www.wrox.com/file.pdf"),
-                                       URL("http://www.google.com/file.pdf"),
-                                       URL("http://www.learn2develop.net/file.pdf"))
+        private const val TIME_BETWEEN_DOWNLOADS = 2000L
+
+        val urls: Array<String> = arrayOf("http://www.amazon.com/file.pdf",
+                                          "http://www.wrox.com/file.pdf",
+                                          "http://www.google.com/file.pdf",
+                                          "http://www.learn2develop.net/file.pdf")
 
         fun pause(time: Long) {
             try {
@@ -22,23 +24,17 @@ class Mock {
             }
         }
 
-        fun putUrls(intent: Intent): Intent? {
-            try {
-                val urls = urls
-                return intent.putExtra(Constants.EXTRAS_URL, urls)
-            } catch (e: Exception) {
-                Commons.error(e)
-            }
-
-            return null
+        fun downloadFile(url: String): Int {
+            Commons.log(Constants.TAG_TIMER_CLASS_SERVICE, "Downloading: $url")
+            pause(TIME_BETWEEN_DOWNLOADS)
+            // Return an arbitrary number representing the size of the file downloaded
+            return Random.nextInt(50, 250)
         }
 
-        fun fakeRequest(): String {
-            return "{\"id\":74}"
-        }
+        fun putUrls(intent: Intent): Intent = intent.putExtra(Constants.EXTRAS_URL, urls)
 
-        fun fakeResponse(): String {
-            return "[{\"id\":78945,\"name\":\"John\"},{\"id\":25897,\"name\":\"Andrew\"},{\"id\":35981,\"name\":\"Joe\"}]"
-        }
+        fun fakeRequest(): String = "{\"id\":74}"
+
+        fun fakeResponse(): String = "[{\"id\":78945,\"name\":\"John\"},{\"id\":25897,\"name\":\"Andrew\"},{\"id\":35981,\"name\":\"Joe\"}]"
     }
 }

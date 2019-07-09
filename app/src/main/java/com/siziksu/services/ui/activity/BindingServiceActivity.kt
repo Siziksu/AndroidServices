@@ -95,8 +95,7 @@ class BindingServiceActivity : AppCompatActivity() {
     private fun bindService() {
         if (!bound) {
             Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_BINDING)
-            bindService(Intent(baseContext, BindingService::class.java), serviceConnection,
-                        Context.BIND_AUTO_CREATE)
+            bindService(Intent(baseContext, BindingService::class.java), serviceConnection, Context.BIND_AUTO_CREATE)
         }
     }
 

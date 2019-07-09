@@ -7,7 +7,6 @@ import android.os.IBinder
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.mock.Mock
-import java.net.URL
 import java.util.Timer
 import java.util.TimerTask
 
@@ -61,28 +60,20 @@ class TimerClassService : Service() {
         Commons.log(Constants.TAG_TIMER_CLASS_SERVICE, Constants.SERVICE_DESTROYED)
     }
 
-    private fun DownloadFile(url: URL): Int {
-        Commons.log(Constants.TAG_TIMER_CLASS_SERVICE, "Downloading: $url")
-        Mock.pause(TIME_BETWEEN_DOWNLOADS)
-        // Return an arbitrary number representing the size of the file downloaded
-        return 100
-    }
-
     companion object {
 
-        private const val TIME_BETWEEN_DOWNLOADS = 2000L
         private const val DELAY_TIME_TO_PUBLISH_PROGRESS = 500L
         private const val TIMER_DELAY = 1000
         private const val TIMER_UPDATE_INTERVAL = 1000
     }
 
-    private inner class BackgroundTask(private val service: Service, private val intent: Intent) : AsyncTask<Array<URL>, Int, Long>() {
+    private inner class BackgroundTask(private val service: Service, private val intent: Intent) : AsyncTask<Array<String>, Int, Long>() {
 
-        override fun doInBackground(vararg urls: Array<URL>): Long? {
+        override fun doInBackground(vararg urls: Array<String>): Long? {
             val count = urls.size
             var totalBytesDownloaded: Long = 0
             for (i in 0 until count) {
-                totalBytesDownloaded += DownloadFile(urls[0][i]).toLong()
+                totalBytesDownloaded += Mock.downloadFile(urls[0][i]).toLong()
                 // Calculate percentage downloaded and report its progress
                 publishProgress(((i + 1) / count.toFloat() * 100).toInt())
                 Mock.pause(DELAY_TIME_TO_PUBLISH_PROGRESS)
