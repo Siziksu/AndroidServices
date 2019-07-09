@@ -2,25 +2,22 @@ package com.siziksu.services.data.service
 
 import android.app.Service
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Binder
 import android.os.IBinder
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.mock.Mock
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class BindingService : Service() {
 
     private var urls: Array<String>? = null
+    private var onStopListener: (() -> Unit)? = null
 
     private val binder = LocalBinder()
-    private var stopService: Boolean = false
-
-    inner class LocalBinder : Binder() {
-
-        val service: BindingService
-            get() = this@BindingService
-    }
+    private var serviceStopped: Boolean = false
 
     override fun onBind(intent: Intent): IBinder? {
         Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_BOUND)
@@ -38,22 +35,18 @@ class BindingService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        return if (urls == null) {
-            Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_NOT_STARTED)
-            stopSelf()
-            START_STICKY
-        } else {
-            stopService = false
+        urls?.let {
             Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_STARTED)
-            BackgroundTask(this, intent).execute(urls)
-            // We want this service to continue running until it is explicitly stopped, so return sticky.
-            START_STICKY
-        }
+            serviceStopped = false
+            task(intent, it)
+        } ?: stop()
+        return START_STICKY // We want this service to continue running until it is explicitly stopped, so return sticky.
     }
 
     override fun stopService(name: Intent): Boolean {
         Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_STOPPED)
-        stopService = true
+        serviceStopped = true
+        onStopListener?.invoke()
         return super.stopService(name)
     }
 
@@ -66,43 +59,35 @@ class BindingService : Service() {
         this.urls = urls
     }
 
-    private inner class BackgroundTask(private val service: Service, private val intent: Intent) : AsyncTask<Array<String>, Int, Long>() {
+    fun setOnStopListener(listener: (() -> Unit)) {
+        onStopListener = listener
+    }
 
-        override fun doInBackground(vararg urls: Array<String>): Long? {
-            val count = urls.size
+    private fun stop() {
+        Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_NOT_STARTED)
+        stopSelf()
+    }
+
+    private fun task(intent: Intent, list: Array<String>) {
+        GlobalScope.launch {
             var totalBytesDownloaded: Long = 0
-            for (i in 0 until count) {
-                if (stopService) {
-                    cancel(true)
+            for (i in 0 until list.size) {
+                if (serviceStopped) {
                     break
-                } else {
-                    totalBytesDownloaded += Mock.downloadFile(urls[0][i]).toLong()
-                    // Calculate percentage downloaded and report its progress
-                    publishProgress(((i + 1) / count.toFloat() * 100).toInt())
-                    Mock.pause(DELAY_TIME_TO_PUBLISH_PROGRESS)
                 }
+                totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
+                Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "${((i + 1) / list.size.toFloat() * 100).toInt()}% downloaded ($totalBytesDownloaded bytes)")
+                delay(1000)
             }
-            return totalBytesDownloaded
-        }
-
-        override fun onCancelled() {
-            super.onCancelled()
-            Commons.log(Constants.TAG_BINDING_SERVICE, "Download task canceled")
-        }
-
-        override fun onProgressUpdate(vararg progress: Int?) {
-            Commons.log(Constants.TAG_BINDING_SERVICE, progress[0].toString() + "% downloaded")
-        }
-
-        override fun onPostExecute(result: Long?) {
-            Commons.log(Constants.TAG_BINDING_SERVICE, "Downloaded $result bytes")
+            Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "Downloaded $totalBytesDownloaded bytes")
             // This will stop the service after finishing the task
-            service.stopService(intent)
+            stopService(intent)
         }
     }
 
-    companion object {
+    inner class LocalBinder : Binder() {
 
-        private const val DELAY_TIME_TO_PUBLISH_PROGRESS = 500L
+        val service: BindingService
+            get() = this@BindingService
     }
 }

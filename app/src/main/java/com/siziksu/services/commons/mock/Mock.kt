@@ -11,7 +11,8 @@ class Mock {
         val urls: Array<String> = arrayOf("http://www.amazon.com/file.pdf",
                                           "http://www.wrox.com/file.pdf",
                                           "http://www.google.com/file.pdf",
-                                          "http://www.learn2develop.net/file.pdf")
+                                          "http://www.learn2develop.net/file.pdf",
+                                          "http://www.britzel.com/file.pdf")
 
         fun pause(time: Long) {
             try {

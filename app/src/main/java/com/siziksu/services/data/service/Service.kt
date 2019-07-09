@@ -53,7 +53,7 @@ class Service : IntentService(Constants.TAG_INTENT_SERVICE) {
         var totalBytesDownloaded: Long = 0
         for (i in 0 until list.size) {
             totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
-            Commons.log(Constants.TAG_INTENT_SERVICE, "${((i + 1) / list.size.toFloat() * 100)}% downloaded ($totalBytesDownloaded bytes)")
+            Commons.log(Constants.TAG_INTENT_SERVICE, "${((i + 1) / list.size.toFloat() * 100).toInt()}% downloaded ($totalBytesDownloaded bytes)")
             delay(1000)
         }
         Commons.log(Constants.TAG_INTENT_SERVICE, "Downloaded $totalBytesDownloaded bytes")
