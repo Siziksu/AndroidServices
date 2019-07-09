@@ -97,13 +97,16 @@ class MessengerServiceActivity : AppCompatActivity(), MessengerService.Listener 
     private fun serviceRequest() {
         if (bound) {
             val json = Mock.fakeRequest()
-            val msg = Message.obtain(null, MessengerService.MESSENGER_SERVICE_TEST)
-            msg.replyTo = Messenger(ResponseHandler(this))
+            val msg = Message.obtain(null, MessengerService.MESSENGER_SERVICE_WHAT) // Prepares the message to be sent
+
+            msg.replyTo = Messenger(ResponseHandler(this)) // Sets the callback
+
             val bundle = Bundle()
             bundle.putString(Constants.EXTRAS_JSON, json)
-            msg.data = bundle
+            msg.data = bundle // Sets the data to be sent
+
             try {
-                messenger?.send(msg)
+                messenger?.send(msg) // Sends the data
             } catch (e: RemoteException) {
                 Commons.error(e)
             }
@@ -116,7 +119,7 @@ class MessengerServiceActivity : AppCompatActivity(), MessengerService.Listener 
 
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                MessengerService.MESSENGER_SERVICE_TEST -> {
+                MessengerService.MESSENGER_SERVICE_WHAT -> {
                     msg.data?.let {
                         if (it.containsKey(Constants.EXTRAS_JSON)) {
                             val json = it.getString(Constants.EXTRAS_JSON)

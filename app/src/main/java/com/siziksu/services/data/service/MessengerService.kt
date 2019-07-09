@@ -49,21 +49,23 @@ class MessengerService : Service() {
 
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                MESSENGER_SERVICE_TEST -> if (msg.data.containsKey(Constants.EXTRAS_JSON)) {
-                    val json = msg.data.getString(Constants.EXTRAS_JSON)
-                    Commons.log(Constants.TAG_MESSENGER_SERVICE, json ?: "")
-                    Mock.pause(DELAY_TIME_TO_PUBLISH_REQUEST_RECEIVED)
-                    val response = Message.obtain(null, MESSENGER_SERVICE_TEST)
-                    val bundle = Bundle()
-                    bundle.putString(Constants.EXTRAS_JSON, Mock.fakeResponse())
-                    response.data = bundle
-                    try {
-                        msg.replyTo.send(response)
-                    } catch (e: Exception) {
-                        Commons.error(e)
-                    }
-                }
+                MESSENGER_SERVICE_WHAT -> // Message received in this "what"
+                    if (msg.data.containsKey(Constants.EXTRAS_JSON)) {
+                        val json = msg.data.getString(Constants.EXTRAS_JSON)
+                        Commons.log(Constants.TAG_MESSENGER_SERVICE, json ?: "") // Prints the request data
 
+                        val response = Message.obtain(null, MESSENGER_SERVICE_WHAT) // Prepares the message to be sent
+
+                        val bundle = Bundle()
+                        bundle.putString(Constants.EXTRAS_JSON, Mock.fakeResponse())
+                        response.data = bundle // Sets the data to be sent
+
+                        try {
+                            msg.replyTo.send(response) // Sends the data
+                        } catch (e: Exception) {
+                            Commons.error(e)
+                        }
+                    }
                 else -> super.handleMessage(msg)
             }
         }
@@ -71,8 +73,7 @@ class MessengerService : Service() {
 
     companion object {
 
-        const val MESSENGER_SERVICE_TEST = 0
-        private const val DELAY_TIME_TO_PUBLISH_REQUEST_RECEIVED = 2000L
+        const val MESSENGER_SERVICE_WHAT = 0
     }
 
     interface Listener {

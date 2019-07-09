@@ -6,18 +6,18 @@ import android.os.Bundle
 import android.widget.AdapterView.OnItemClickListener
 import com.siziksu.services.R
 import com.siziksu.services.app.Constants
-import com.siziksu.services.ui.menu.Index
-import com.siziksu.services.ui.menu.adapter.IndexAdapter
+import com.siziksu.services.ui.menu.Item
+import com.siziksu.services.ui.menu.MenuLoader
+import com.siziksu.services.ui.menu.adapter.ItemAdapter
 
 class MainActivity : ListActivity() {
-
-    private val menu = ArrayList<Index>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val menu = ArrayList<Item>()
         menu.addAll(MenuLoader.getMenu())
-        listAdapter = IndexAdapter(menu)
+        listAdapter = ItemAdapter(menu)
         listView.onItemClickListener = OnItemClickListener { _, _, position, _ ->
             startActivity(
                     Intent(this, menu[position].clazz)
