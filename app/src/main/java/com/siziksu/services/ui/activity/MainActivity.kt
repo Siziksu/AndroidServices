@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.widget.AdapterView.OnItemClickListener
 import com.siziksu.services.R
 import com.siziksu.services.app.Constants
-import com.siziksu.services.ui.`object`.Index
-import com.siziksu.services.ui.`object`.adapter.IndexAdapter
+import com.siziksu.services.ui.menu.Index
+import com.siziksu.services.ui.menu.adapter.IndexAdapter
 
 class MainActivity : ListActivity() {
 

@@ -1,6 +1,5 @@
 package com.siziksu.services.commons.mock
 
-import android.content.Intent
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import kotlin.random.Random
@@ -28,8 +27,6 @@ class Mock {
             // Return an arbitrary number representing the size of the file downloaded
             return Random.nextInt(50, 250)
         }
-
-        fun putUrls(intent: Intent): Intent = intent.putExtra(Constants.EXTRAS_URL, urls)
 
         fun fakeRequest(): String = "{\"id\":74}"
 

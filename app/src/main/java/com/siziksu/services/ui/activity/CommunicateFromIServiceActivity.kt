@@ -25,7 +25,7 @@ class CommunicateFromIServiceActivity : AppCompatActivity() {
             intent.extras?.let {
                 if (it.containsKey(Constants.EXTRAS_MESSAGE)) {
                     val message = intent.getStringExtra(Constants.EXTRAS_MESSAGE)
-                    Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, message)
+                    Commons.log(Constants.TAG_BROADCAST_RECEIVER, message)
                 }
             }
         }

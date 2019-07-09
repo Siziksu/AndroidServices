@@ -1,11 +1,11 @@
-package com.siziksu.services.ui.`object`.adapter
+package com.siziksu.services.ui.menu.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.siziksu.services.R
-import com.siziksu.services.ui.`object`.Index
+import com.siziksu.services.ui.menu.Index
 import kotlinx.android.synthetic.main.index_rows.view.activityTitle
 import kotlinx.android.synthetic.main.index_rows.view.summary
 

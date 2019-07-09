@@ -13,8 +13,6 @@ class Commons {
 
         fun error(e: Exception) = Log.e("LOG", e.message, e)
 
-        fun getTime(seconds: Long): String = millisToStringTime(seconds * 1000)
-
         private fun millisToStringTime(millis: Long): String = String.format("%02d:%02d:%02d",
                                                                              TimeUnit.MILLISECONDS.toHours(millis) % 24,
                                                                              TimeUnit.MILLISECONDS.toMinutes(millis) % 60,

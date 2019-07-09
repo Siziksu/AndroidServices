@@ -1,6 +1,6 @@
 package com.siziksu.services.ui.activity
 
-import com.siziksu.services.ui.`object`.Index
+import com.siziksu.services.ui.menu.Index
 import java.util.ArrayList
 
 class MenuLoader {
