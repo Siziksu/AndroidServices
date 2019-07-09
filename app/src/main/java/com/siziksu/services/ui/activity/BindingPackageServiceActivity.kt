@@ -30,6 +30,7 @@ class BindingPackageServiceActivity : AppCompatActivity() {
             Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_CONNECTED)
             service = (binder as BindingPackageService.LocalBinder).service
             service?.setUrls(Mock.urls)
+            service?.setOnStopListener { runOnUiThread { startButtonActive() } }
             bound = true
         }
 
@@ -49,11 +50,10 @@ class BindingPackageServiceActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (DeviceManager.isServiceRunning(this, Constants.TAG_BINDING_PACKAGE_SERVICE)) {
-            btnStartService.isEnabled = false
-            btnStopService.isEnabled = true
+            stopButtonActive()
             Snackbar.make(two_button_layout, Constants.SERVICE_RUNNING, Snackbar.LENGTH_SHORT).show()
         } else {
-            btnStopService.isEnabled = false
+            startButtonActive()
         }
         bindService()
     }
@@ -67,12 +67,10 @@ class BindingPackageServiceActivity : AppCompatActivity() {
         activityTitle.text = intent.getStringExtra(Constants.EXTRAS_TITLE)
         activitySummary.text = intent.getStringExtra(Constants.EXTRAS_SUMMARY)
         btnStartService.setOnClickListener {
-            btnStartService.isEnabled = false
-            btnStopService.isEnabled = true
+            stopButtonActive()
             startService()
         }
         btnStopService.setOnClickListener {
-            btnStopService.isEnabled = false
             stopService()
         }
     }
@@ -109,5 +107,15 @@ class BindingPackageServiceActivity : AppCompatActivity() {
             Commons.log(Constants.TAG_BINDING_PACKAGE_SERVICE, Constants.SERVICE_UNBINDING)
             unbindService(serviceConnection)
         }
+    }
+
+    private fun startButtonActive() {
+        btnStartService.isEnabled = true
+        btnStopService.isEnabled = false
+    }
+
+    private fun stopButtonActive() {
+        btnStartService.isEnabled = false
+        btnStopService.isEnabled = true
     }
 }

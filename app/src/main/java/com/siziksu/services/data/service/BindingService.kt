@@ -64,7 +64,7 @@ class BindingService : Service() {
     }
 
     private fun stop() {
-        Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_NOT_STARTED)
+        Commons.log(Constants.TAG_BINDING_SERVICE, Constants.SERVICE_STOPPING)
         stopSelf()
     }
 
@@ -76,10 +76,10 @@ class BindingService : Service() {
                     break
                 }
                 totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
-                Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "${((i + 1) / list.size.toFloat() * 100).toInt()}% downloaded ($totalBytesDownloaded bytes)")
+                Commons.log(Constants.TAG_BINDING_SERVICE, "${((i + 1) / list.size.toFloat() * 100).toInt()}% downloaded ($totalBytesDownloaded bytes)")
                 delay(1000)
             }
-            Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "Downloaded $totalBytesDownloaded bytes")
+            Commons.log(Constants.TAG_BINDING_SERVICE, "Downloaded $totalBytesDownloaded bytes")
 
             stopService(intent) // This will stop the service after finishing the task
         }
