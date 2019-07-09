@@ -2,11 +2,13 @@ package com.siziksu.services.data.service
 
 import android.app.Service
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.IBinder
 import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
 import com.siziksu.services.commons.mock.Mock
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LongRunningService : Service() {
 
@@ -27,7 +29,7 @@ class LongRunningService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, Constants.SERVICE_STARTED)
-        BackgroundTask(this, intent).execute(Mock.urls)
+        task(intent, Mock.urls)
         return START_STICKY
     }
 
@@ -41,33 +43,17 @@ class LongRunningService : Service() {
         Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, Constants.SERVICE_DESTROYED)
     }
 
-    private inner class BackgroundTask(private val service: Service, private val intent: Intent) : AsyncTask<Array<String>, Int, Long>() {
-
-        override fun doInBackground(vararg urls: Array<String>): Long? {
-            val count = urls.size
+    private fun task(intent: Intent, list: Array<String>) {
+        GlobalScope.launch {
             var totalBytesDownloaded: Long = 0
-            for (i in 0 until count) {
-                totalBytesDownloaded += Mock.downloadFile(urls[0][i]).toLong()
-                // Calculate percentage downloaded and report its progress
-                publishProgress(((i + 1) / count.toFloat() * 100).toInt())
-                Mock.pause(DELAY_TIME_TO_PUBLISH_PROGRESS)
+            for (i in 0 until list.size) {
+                totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
+                Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "${((i + 1) / list.size.toFloat() * 100)}% downloaded ($totalBytesDownloaded bytes)")
+                delay(1000)
             }
-            return totalBytesDownloaded
-        }
-
-        override fun onProgressUpdate(vararg progress: Int?) {
-            Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, progress[0].toString() + "% downloaded")
-        }
-
-        override fun onPostExecute(result: Long?) {
-            Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "Downloaded $result bytes")
+            Commons.log(Constants.TAG_LONG_RUNNING_SERVICE, "Downloaded $totalBytesDownloaded bytes")
             // This will stop the service after finishing the task
-            service.stopService(intent)
+            stopService(intent)
         }
-    }
-
-    companion object {
-
-        private const val DELAY_TIME_TO_PUBLISH_PROGRESS = 500L
     }
 }

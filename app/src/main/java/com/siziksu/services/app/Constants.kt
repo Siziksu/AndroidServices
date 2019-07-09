@@ -19,6 +19,8 @@ class Constants {
         const val TAG_MESSENGER_SERVICE = "MessengerService"
         const val TAG_BOOT_RECEIVER = "BootReceiver"
 
+        const val TAG_MOCK_FILE = "MockFile"
+
         const val SERVICE_CREATED = "Service created"
         const val SERVICE_DESTROYED = "Service destroyed"
         const val SERVICE_CONNECTED = "Service connected"

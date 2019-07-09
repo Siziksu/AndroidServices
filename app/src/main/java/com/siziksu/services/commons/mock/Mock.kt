@@ -8,7 +8,6 @@ import kotlin.random.Random
 class Mock {
 
     companion object {
-        private const val TIME_BETWEEN_DOWNLOADS = 2000L
 
         val urls: Array<String> = arrayOf("http://www.amazon.com/file.pdf",
                                           "http://www.wrox.com/file.pdf",
@@ -25,8 +24,7 @@ class Mock {
         }
 
         fun downloadFile(url: String): Int {
-            Commons.log(Constants.TAG_TIMER_CLASS_SERVICE, "Downloading: $url")
-            pause(TIME_BETWEEN_DOWNLOADS)
+            Commons.log(Constants.TAG_MOCK_FILE, "Downloading: $url")
             // Return an arbitrary number representing the size of the file downloaded
             return Random.nextInt(50, 250)
         }

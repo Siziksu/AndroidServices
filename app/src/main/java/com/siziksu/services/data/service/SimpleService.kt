@@ -26,7 +26,7 @@ class SimpleService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Commons.log(Constants.TAG_SIMPLE_SERVICE, Constants.SERVICE_STARTED)
-        startTimer(intent)
+        task(intent)
         return START_STICKY
     }
 
@@ -40,14 +40,14 @@ class SimpleService : Service() {
         Commons.log(Constants.TAG_SIMPLE_SERVICE, Constants.SERVICE_DESTROYED)
     }
 
-    private fun startTimer(intent: Intent) {
+    private fun task(intent: Intent) {
         val handler = Handler()
         val runnableCode = object : Runnable {
 
             private var count = 0
 
             override fun run() {
-                if (count++ < 5) {
+                if (count++ < 3) {
                     Commons.log(Constants.TAG_SIMPLE_SERVICE, "$count")
                     handler.postDelayed(this, 1000)
                 } else {
