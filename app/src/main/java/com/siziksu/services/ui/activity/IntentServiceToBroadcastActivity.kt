@@ -19,6 +19,18 @@ import kotlinx.android.synthetic.main.section_title.activityTitle
 
 class IntentServiceToBroadcastActivity : AppCompatActivity() {
 
+    private val intentReceiver = object : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            intent.extras?.let {
+                if (it.containsKey(Constants.EXTRAS_MESSAGE)) {
+                    val message = intent.getStringExtra(Constants.EXTRAS_MESSAGE)
+                    Commons.log(Constants.TAG_BROADCAST_RECEIVER, message)
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one_button)
@@ -53,17 +65,5 @@ class IntentServiceToBroadcastActivity : AppCompatActivity() {
     private fun startService() {
         Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_STARTING)
         startService(Intent(baseContext, IntentServiceToBroadcast::class.java))
-    }
-
-    private val intentReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            intent.extras?.let {
-                if (it.containsKey(Constants.EXTRAS_MESSAGE)) {
-                    val message = intent.getStringExtra(Constants.EXTRAS_MESSAGE)
-                    Commons.log(Constants.TAG_BROADCAST_RECEIVER, message)
-                }
-            }
-        }
     }
 }
