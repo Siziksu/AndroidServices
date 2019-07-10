@@ -2,8 +2,8 @@ package com.siziksu.services.data.service.binder
 
 import android.content.Intent
 import android.os.Binder
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.data.service.WeatherService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

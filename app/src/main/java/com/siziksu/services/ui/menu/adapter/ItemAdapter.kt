@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.siziksu.services.R
-import com.siziksu.services.ui.menu.Item
+import com.siziksu.services.ui.menu.model.Item
 import kotlinx.android.synthetic.main.index_rows.view.activityTitle
 import kotlinx.android.synthetic.main.index_rows.view.summary
 

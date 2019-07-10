@@ -4,8 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 
 class SimpleService : Service() {
 

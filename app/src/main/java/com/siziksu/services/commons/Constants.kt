@@ -1,4 +1,4 @@
-package com.siziksu.services.app
+package com.siziksu.services.commons
 
 class Constants {
 
@@ -10,7 +10,7 @@ class Constants {
 
         const val TAG_SIMPLE_SERVICE = "SimpleService"
         const val TAG_INTENT_SERVICE = "IntentService"
-        const val TAG_COMMUNICATE_FROM_SERVICE = "CommunicateFromIService"
+        const val TAG_INTENT_SERVICE_TO_BROADCAST = "IntentServiceToBroadcast"
         const val TAG_BROADCAST_RECEIVER = "BroadcastReceiver"
         const val TAG_LONG_RUNNING_SERVICE = "LongRunningService"
         const val TAG_BINDING_SERVICE = "BindingService"

@@ -32,7 +32,7 @@
                 android:label="@string/app_name"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".ui.activity.CommunicateFromIServiceActivity"
+                android:name=".ui.activity.IntentServiceToBroadcastActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait" />
         <activity
@@ -55,7 +55,7 @@
         <service android:name=".data.service.SimpleService" />
         <service android:name=".data.service.LongRunningService" />
         <service android:name=".data.service.Service" />
-        <service android:name=".data.service.CommunicateFromIService" />
+        <service android:name=".data.service.IntentServiceToBroadcast" />
         <service
                 android:name=".data.service.BindingService"
                 android:exported="false">

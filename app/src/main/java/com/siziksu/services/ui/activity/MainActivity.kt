@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView.OnItemClickListener
 import com.siziksu.services.R
-import com.siziksu.services.app.Constants
-import com.siziksu.services.ui.menu.Item
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.ui.menu.MenuLoader
 import com.siziksu.services.ui.menu.adapter.ItemAdapter
+import com.siziksu.services.ui.menu.model.Item
 
 class MainActivity : ListActivity() {
 

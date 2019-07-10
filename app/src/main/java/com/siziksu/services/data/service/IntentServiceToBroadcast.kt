@@ -3,46 +3,46 @@ package com.siziksu.services.data.service
 import android.app.IntentService
 import android.content.Intent
 import android.os.IBinder
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.commons.mock.Mock
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
-class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SERVICE) {
+class IntentServiceToBroadcast : IntentService(Constants.TAG_INTENT_SERVICE_TO_BROADCAST) {
 
     private lateinit var intent: Intent
 
     override fun onBind(intent: Intent): IBinder? {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_BOUND)
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_BOUND)
         return null
     }
 
     override fun onUnbind(intent: Intent): Boolean {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_UNBOUND)
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_UNBOUND)
         return super.onUnbind(intent)
     }
 
     override fun onCreate() {
         super.onCreate()
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_CREATED)
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_CREATED)
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         this.intent = intent
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STARTED)
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_STARTED)
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun stopService(name: Intent): Boolean {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STOPPED)
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_STOPPED)
         return super.stopService(name)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         stopService(intent)
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_DESTROYED)
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_DESTROYED)
     }
 
     override fun onHandleIntent(intent: Intent) {
@@ -53,10 +53,10 @@ class CommunicateFromIService : IntentService(Constants.TAG_COMMUNICATE_FROM_SER
         var totalBytesDownloaded: Long = 0
         for (i in 0 until list.size) {
             totalBytesDownloaded += Mock.downloadFile(list[i]).toLong()
-            Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "${((i + 1) / list.size.toFloat() * 100).toInt()}% downloaded ($totalBytesDownloaded bytes)")
+            Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, "${((i + 1) / list.size.toFloat() * 100).toInt()}% downloaded ($totalBytesDownloaded bytes)")
             delay(1000)
         }
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, "Downloaded $totalBytesDownloaded bytes")
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, "Downloaded $totalBytesDownloaded bytes")
 
         // Send a broadcast to inform the activity that the file has been downloaded
         val broadcast = Intent()

@@ -7,8 +7,8 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Message
 import android.os.Messenger
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.commons.mock.Mock
 
 class MessengerService : Service() {

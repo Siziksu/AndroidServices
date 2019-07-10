@@ -8,28 +8,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.siziksu.services.R
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.commons.DeviceManager
-import com.siziksu.services.data.service.CommunicateFromIService
+import com.siziksu.services.data.service.IntentServiceToBroadcast
 import kotlinx.android.synthetic.main.activity_one_button.one_button_layout
 import kotlinx.android.synthetic.main.section_single_button.btnStartService
 import kotlinx.android.synthetic.main.section_title.activitySummary
 import kotlinx.android.synthetic.main.section_title.activityTitle
 
-class CommunicateFromIServiceActivity : AppCompatActivity() {
-
-    private val intentReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            intent.extras?.let {
-                if (it.containsKey(Constants.EXTRAS_MESSAGE)) {
-                    val message = intent.getStringExtra(Constants.EXTRAS_MESSAGE)
-                    Commons.log(Constants.TAG_BROADCAST_RECEIVER, message)
-                }
-            }
-        }
-    }
+class IntentServiceToBroadcastActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +30,7 @@ class CommunicateFromIServiceActivity : AppCompatActivity() {
         val filter = IntentFilter()
         filter.addAction(Constants.ACTION_FILES_DOWNLOADED)
         registerReceiver(intentReceiver, filter)
-        if (DeviceManager.isServiceRunning(this, Constants.TAG_COMMUNICATE_FROM_SERVICE)) {
+        if (DeviceManager.isServiceRunning(this, Constants.TAG_INTENT_SERVICE_TO_BROADCAST)) {
             btnStartService.isEnabled = false
             Snackbar.make(one_button_layout, Constants.SERVICE_RUNNING, Snackbar.LENGTH_SHORT).show()
         }
@@ -63,7 +51,19 @@ class CommunicateFromIServiceActivity : AppCompatActivity() {
     }
 
     private fun startService() {
-        Commons.log(Constants.TAG_COMMUNICATE_FROM_SERVICE, Constants.SERVICE_STARTING)
-        startService(Intent(baseContext, CommunicateFromIService::class.java))
+        Commons.log(Constants.TAG_INTENT_SERVICE_TO_BROADCAST, Constants.SERVICE_STARTING)
+        startService(Intent(baseContext, IntentServiceToBroadcast::class.java))
+    }
+
+    private val intentReceiver = object : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            intent.extras?.let {
+                if (it.containsKey(Constants.EXTRAS_MESSAGE)) {
+                    val message = intent.getStringExtra(Constants.EXTRAS_MESSAGE)
+                    Commons.log(Constants.TAG_BROADCAST_RECEIVER, message)
+                }
+            }
+        }
     }
 }

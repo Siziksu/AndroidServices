@@ -1,7 +1,7 @@
 package com.siziksu.services.commons.mock
 
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import kotlin.random.Random
 
 class Mock {

@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.siziksu.services.R
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.commons.DeviceManager
 import com.siziksu.services.data.service.LongRunningService
 import kotlinx.android.synthetic.main.activity_one_button.one_button_layout

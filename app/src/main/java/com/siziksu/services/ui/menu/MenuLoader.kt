@@ -2,12 +2,13 @@ package com.siziksu.services.ui.menu
 
 import com.siziksu.services.ui.activity.BindingPackageServiceActivity
 import com.siziksu.services.ui.activity.BindingServiceActivity
-import com.siziksu.services.ui.activity.CommunicateFromIServiceActivity
+import com.siziksu.services.ui.activity.IntentServiceToBroadcastActivity
 import com.siziksu.services.ui.activity.LongRunningServiceActivity
 import com.siziksu.services.ui.activity.MessengerServiceActivity
 import com.siziksu.services.ui.activity.ServiceActivity
 import com.siziksu.services.ui.activity.SimpleServiceActivity
 import com.siziksu.services.ui.activity.WeatherServiceActivity
+import com.siziksu.services.ui.menu.model.Item
 import java.util.ArrayList
 
 class MenuLoader {
@@ -31,7 +32,7 @@ class MenuLoader {
                     "This example executes an asynchronous task on a separate thread using an IntentService.")
             )
             menu.add(Item(
-                    CommunicateFromIServiceActivity::class.java,
+                    IntentServiceToBroadcastActivity::class.java,
                     "Communication from an IntentService",
                     "Often a service simply executes on its own thread, independently of the activity that calls it. The service might need to communicate information to the activity. In this example the IntentService communicates with the activity using a BroadcastReceiver.")
             )

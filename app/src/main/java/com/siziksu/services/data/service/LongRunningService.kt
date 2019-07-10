@@ -3,8 +3,8 @@ package com.siziksu.services.data.service
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.siziksu.services.app.Constants
 import com.siziksu.services.commons.Commons
+import com.siziksu.services.commons.Constants
 import com.siziksu.services.commons.mock.Mock
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
